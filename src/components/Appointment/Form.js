@@ -14,8 +14,8 @@ export default function Form(props) {
   };
 
   const cancel = () => {
-    props.onCancel();
     reset();
+    props.onCancel();
   };
 
   return (
@@ -26,7 +26,8 @@ export default function Form(props) {
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder={student || "Enter Student Name"}
+            value={student || ""}
+            placeholder="Enter Student Name"
             onChange={(event) => setStudent(event.target.value)}
           />
         </form>
