@@ -171,8 +171,21 @@ storiesOf("Appointment", module)
   .add("Appointment Empty", () => {
     return (
       <Fragment>
-        <Appointment id={1} time="4pm" />
+        <Appointment id={1} time="4pm" onAdd={action("onAdd")} />
         <Appointment time="5pm" />
       </Fragment>
     );
-  });
+  })
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+        onEdit={action("onEdit")}
+        onDelete={action("onDelete")}
+      />
+      <Appointment time="5pm" />
+    </Fragment>
+  ))
+  
