@@ -18,3 +18,11 @@ export const getInterview = (state, interview) => {
     }
     : null;
 };
+
+export const getInterviewersForDay = (state, day) => {
+  const dayInState = state.days.filter(dayState => dayState.name === day)[0];
+
+  if (!dayInState) return [];
+
+  return dayInState.interviewers.map(interviewer => state.interviewers[`${interviewer}`]);
+};
