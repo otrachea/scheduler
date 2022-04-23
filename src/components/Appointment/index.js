@@ -7,9 +7,11 @@ import useVisualMode from "hooks/useVisualMode";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
+import Form from "./Form";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
+const CREATE = "CREATE";
 
 export default function Appointment(props) {
 
@@ -20,15 +22,28 @@ export default function Appointment(props) {
       <Header time={props.time} />
       {mode === EMPTY &&
         <Empty
-          onAdd={props.onAdd}
+          onAdd={() => {
+            transition(CREATE);
+          }}
         ></Empty>}
-      {mode === SHOW &&
+      {
+        mode === SHOW &&
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer.name}
           onEdit={props.onEdit}
           onDelete={props.onDelete}
-        ></Show>}
-    </article>
+        ></Show>
+      }
+      {
+        mode === CREATE &&
+        <Form
+          interviewers={[]}
+          onCancel={() => {
+            back();
+          }}
+        />
+      }
+    </article >
   );
 }
