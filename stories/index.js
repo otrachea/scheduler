@@ -149,7 +149,7 @@ storiesOf("Appointment", module)
   .add("Appointment with time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="3pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-  .add("Show", () => <Show onEdit={action("onEdit")} onDelete={action("onDelete")} />)
+  .add("Show", () => <Show student="Student Name" interviewer="Interviewer Name" onEdit={action("onEdit")} onDelete={action("onDelete")} />)
   .add("Confirm", () => <Confirm
     message="Delete the appointment?"
     onConfirm={action("onConfirm")}
