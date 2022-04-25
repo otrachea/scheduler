@@ -23,6 +23,16 @@ export default function Appointment(props) {
       interviewer
     };
     props.bookInterview(props.id, interview);
+    transition(SHOW);
+  };
+
+  const getInterviewer = (interviewers, interview) => {
+    if (interviewers && interview) {
+      const interviewer = interviewers.filter(interviewer => {
+        return interviewer.id === interview.interviewer;
+      });
+      return interviewer[0].name;
+    }
   };
 
   return (
@@ -38,7 +48,7 @@ export default function Appointment(props) {
         mode === SHOW &&
         <Show
           student={props.interview.student}
-          interviewer={props.interview.interviewer.name}
+          interviewer={getInterviewer(props.interviewers, props.interview)}
           onEdit={props.onEdit}
           onDelete={props.onDelete}
         ></Show>
