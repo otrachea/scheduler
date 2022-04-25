@@ -9,11 +9,14 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
+import Confirm from "./Confirm";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
 
 export default function Appointment(props) {
 
@@ -25,8 +28,14 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview);
-    transition(SHOW);
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW));
+  };
+
+  const deleteAppointment = (id) => {
+    transition(DELETING);
+    props.cancelInterview(id)
+      .then(() => transition(EMPTY));
   };
 
   const getInterviewer = (interviewers, interview) => {
@@ -34,7 +43,7 @@ export default function Appointment(props) {
       const interviewer = interviewers.filter(interviewer => {
         return interviewer.id === interview.interviewer;
       });
-      return interviewer[0].name;
+      return interviewer.length === 0 ? null : interviewer[0].name;
     }
   };
 
@@ -53,7 +62,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={getInterviewer(props.interviewers, props.interview)}
           onEdit={props.onEdit}
-          onDelete={props.onDelete}
+          onDelete={() => transition(CONFIRM)}
         />
       }
       {
@@ -63,15 +72,27 @@ export default function Appointment(props) {
         />
       }
       {
+        mode === DELETING &&
+        <Status
+          message="Deleting"
+        />
+      }
+      {
+        mode === CONFIRM &&
+        <Confirm
+          message="Are you sure you would like to delete?"
+          onConfirm={() => deleteAppointment(props.id)}
+          onCancel={back}
+        />
+      }
+      {
         mode === CREATE &&
         <Form
           interviewers={props.interviewers}
-          onCancel={() => {
-            back();
-          }}
+          onCancel={back}
           onSave={save}
         />
       }
     </article >
   );
-}
+};
