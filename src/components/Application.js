@@ -44,6 +44,7 @@ export default function Application(props) {
     };
 
     setState(prev => ({ ...prev, appointments }));
+    axios.put(`/api/appointments/${id}`, { interview: { ...interview } });
   };
 
   useEffect(() => {
