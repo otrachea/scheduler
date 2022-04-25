@@ -8,16 +8,19 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
+import Status from "./Status";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
   const save = (name, interviewer) => {
+    transition(SAVING);
     const interview = {
       student: name,
       interviewer
@@ -43,7 +46,7 @@ export default function Appointment(props) {
           onAdd={() => {
             transition(CREATE);
           }}
-        ></Empty>}
+        />}
       {
         mode === SHOW &&
         <Show
@@ -51,7 +54,13 @@ export default function Appointment(props) {
           interviewer={getInterviewer(props.interviewers, props.interview)}
           onEdit={props.onEdit}
           onDelete={props.onDelete}
-        ></Show>
+        />
+      }
+      {
+        mode === SAVING &&
+        <Status
+          message="Saving"
+        />
       }
       {
         mode === CREATE &&
