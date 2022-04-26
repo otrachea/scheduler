@@ -13,6 +13,9 @@ export default function useApplicationData() {
   const setDay = day => setState(prev => ({ ...prev, day }));
 
   const bookInterview = (id, interview) => {
+
+    const isNew = state.appointments[id].interview ? false : true;
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -27,7 +30,7 @@ export default function useApplicationData() {
     return axios.put(`/api/appointments/${id}`, { interview: { ...interview } })
       .then(() => {
         setState(prev => {
-          getDayFromAppointment(id).spots -= 1;
+          getDayFromAppointment(id).spots -= (isNew) ? 1 : 0;
           return {
             ...prev,
           };
