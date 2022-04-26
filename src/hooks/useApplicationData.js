@@ -24,11 +24,37 @@ export default function useApplicationData() {
     };
 
     setState(prev => ({ ...prev, appointments }));
-    return axios.put(`/api/appointments/${id}`, { interview: { ...interview } });
+    return axios.put(`/api/appointments/${id}`, { interview: { ...interview } })
+      .then(() => {
+        setState(prev => {
+          getDayFromAppointment(id).spots -= 1;
+          return {
+            ...prev,
+          };
+        });
+      });
+  };
+
+  const getDayFromAppointment = (id) => {
+    for (const day of state.days) {
+      for (const appointment of day.appointments) {
+        if (appointment === id) {
+          return day;
+        }
+      }
+    }
   };
 
   const cancelInterview = (id) => {
-    return axios.delete(`/api/appointments/${id}`);
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState(prev => {
+          getDayFromAppointment(id).spots += 1;
+          return {
+            ...prev,
+          };
+        });
+      });
   };
 
   useEffect(() => {
