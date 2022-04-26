@@ -46,10 +46,11 @@ export default function Appointment(props) {
 
   const getInterviewer = (interviewers, interview) => {
     if (interviewers && interview) {
-      const interviewer = interviewers.filter(interviewer => {
-        return interviewer.id === interview.interviewer;
-      });
-      return interviewer.length === 0 ? null : interviewer[0].name;
+      for (const interviewer of interviewers) {
+        if (interviewer.id === interview.interviewer.id)
+          return interviewer.name;
+      }
+      return null;
     }
   };
 
