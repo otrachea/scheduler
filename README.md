@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+Scheduler is a single page application that lets users book interviews, edit and cancel interviews. This project was mainly used to learn React and modern testing libraries and techniques.
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -26,9 +28,11 @@ npm start
 
 ## Final Product
 
-![]()
-![]()
-![]()
+![Landing page](https://github.com/otrachea/scheduler/blob/main/docs/landing.png)
+![Book interview](https://github.com/otrachea/scheduler/blob/main/docs/book-interview.png)
+![Interview hover](https://github.com/otrachea/scheduler/blob/main/docs/interview-hover.png)
+![Cancel interview](https://github.com/otrachea/scheduler/blob/main/docs/cancel-interview.png)
+![Interview validation](https://github.com/otrachea/scheduler/blob/main/docs/book-interview-validation.png)
 
 # Features
 ## Creating an interview
