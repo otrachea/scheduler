@@ -4,13 +4,12 @@ Scheduler is a single page application that lets users book interviews, edit and
 
 ## Setup
 
-Install dependencies with `npm install`.
+1. Clone this project and clone https://github.com/lighthouse-labs/scheduler-api
+2. Follow the instructions in the README for scheduler-api to startup and setup the api server
+3. Install dependencies with `npm install`.
+4. Startup the scheduler-api server in one terminal
+5. In another terminal, start the scheduler using `npm start`
 
-## Running Webpack Development Server
-
-```sh
-npm start
-```
 ## Dependencies
 
 - axios
@@ -34,10 +33,6 @@ npm start
 ![Cancel interview](https://github.com/otrachea/scheduler/blob/main/docs/cancel-interview.png)
 ![Interview validation](https://github.com/otrachea/scheduler/blob/main/docs/book-interview-validation.png)
 
-# Setup
-1. Clone this project and clone https://github.com/lighthouse-labs/scheduler-api
-2. Follow the instructions in the README for scheduler-api to startup the api server
-3. Start the scheduler using npm start
 # Features
 ## Creating an interview
 To create an interview, click on the desired day on the left hand side. Then click on the plus button in the time slot you want. Enter you name and select an interviewer and click save. A saving indicator will appear before rendering the booked interview in its timeslot. If a name is not entered or an interviewer is not selected, then an appropriate error message will appear.
