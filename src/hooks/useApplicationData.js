@@ -3,6 +3,20 @@ import axios from "axios";
 
 export default function useApplicationData() {
 
+  useEffect(() => {
+    Promise.all([axios.get("/api/days"),
+    axios.get("/api/appointments"),
+    axios.get("/api/interviewers")])
+      .then(results => {
+        setState(prev => ({
+          ...prev,
+          days: results[0].data,
+          appointments: results[1].data,
+          interviewers: results[2].data
+        }));
+      });
+  }, []);
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -76,20 +90,6 @@ export default function useApplicationData() {
         });
       });
   };
-
-  useEffect(() => {
-    Promise.all([axios.get("/api/days"),
-    axios.get("/api/appointments"),
-    axios.get("/api/interviewers")])
-      .then(results => {
-        setState(prev => ({
-          ...prev,
-          days: results[0].data,
-          appointments: results[1].data,
-          interviewers: results[2].data
-        }));
-      });
-  }, []);
 
   return { state, setDay, bookInterview, cancelInterview };
 };
