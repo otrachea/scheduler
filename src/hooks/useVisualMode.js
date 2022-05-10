@@ -4,18 +4,21 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
+  // Sets transition history to new mode
+  // replace represents if history has to skip the last mode
+  // in history (ie. error from api server)
   const transition = (newMode, replace = false) => {
-    if (replace) {
-      setHistory(prev => [...prev.slice(0, -1), newMode]);
-    } else {
-      setHistory(prev => [...prev, newMode]);
-    }
+    setHistory((prev) =>
+      replace ? [...prev.slice(0, -1), newMode] : [...prev, newMode]
+    );
+
     setMode(newMode);
   };
 
+  // Sets mode to previous mode
   const back = () => {
     if (history.length > 1) {
-      const historyCopy = [...history]
+      const historyCopy = [...history];
       historyCopy.pop();
       setMode(historyCopy.slice(-1)[0]);
       setHistory(historyCopy);
@@ -23,4 +26,4 @@ export default function useVisualMode(initial) {
   };
 
   return { mode, transition, back };
-};
+}

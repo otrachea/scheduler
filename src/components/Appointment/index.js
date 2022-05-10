@@ -26,6 +26,7 @@ export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  // When user saves from booking or editing appointment
   const save = (name, interviewer) => {
     transition(SAVING);
     const interview = {
@@ -37,21 +38,12 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true));
   };
 
+  // When user deletes appointment
   const deleteAppointment = (id) => {
     transition(DELETING, true);
     props.cancelInterview(id)
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
-  };
-
-  const getInterviewer = (interviewers, interview) => {
-    if (interviewers && interview) {
-      for (const interviewer of interviewers) {
-        if (interviewer.id === interview.interviewer.id)
-          return interviewer.name;
-      }
-      return null;
-    }
   };
 
   return (
@@ -65,7 +57,7 @@ export default function Appointment(props) {
         mode === SHOW &&
         <Show
           student={props.interview.student}
-          interviewer={getInterviewer(props.interviewers, props.interview)}
+          interviewer={props.interview.interviewer.name}
           onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
