@@ -47,4 +47,4 @@ To cancel an interview, hover over the interview you would like to cancel and cl
 On the left sidebar, whenever an interview is cancelled or booked the number of spots remaining indicator changes accordingly. When there are no more interview spots left in a day, the day is greyed out.
 
 ## Known Issues
-Currently there are no known issues.
+- One very rare bug that occurs when you edit an interview, the spots remaining count changes. However this only happens once when the bug does occur and I haven't been able to replicate the bug since. If the bug does occur, a quick refresh of the page fixes the spots remaining counter.
